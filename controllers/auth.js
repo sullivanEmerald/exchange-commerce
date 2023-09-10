@@ -1,8 +1,8 @@
 const User = require("../model/User");
+const passport = require("passport");
 
 module.exports = {
   postSignup: async (req, res) => {
-    console.log(req.body);
     const { name, email, password } = req.body;
 
     try {
@@ -33,4 +33,23 @@ module.exports = {
       res.status(500).json({ error: "Internal Server Error", status : 500 });
     }
   },
+
+
+  postLogin : async (req, res, next) => {
+    passport.authenticate("local", (err, user) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        res.status(401).json({error : 'Authentication failed'})
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        res.status(200).json({ message : 'Login sucessful', user : req.user.role})
+      });
+    })(req, res, next);
+  }
+  
 };
