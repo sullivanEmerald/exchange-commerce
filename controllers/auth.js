@@ -47,7 +47,7 @@ module.exports = {
         if (err) {
           return next(err);
         }
-        res.status(200).json({ message : 'Login sucessful', user : req.user.role})
+        res.status(200).json({ message : 'Login sucessful', user : req.user, status : 200})
       });
     })(req, res, next);
   }
