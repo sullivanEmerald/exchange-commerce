@@ -8,7 +8,7 @@ module.exports = {
 
             const result = await cloudinary.uploader.upload(req.file.path)
 
-            const saveProduct = products.create({
+            const saveProduct = await products.create({
                 name : name,
                 description : description,
                 price : price,
@@ -17,8 +17,11 @@ module.exports = {
                 cloudinaryId : result.public_id,
             }) 
 
+            const items = await products.find().lean()
+            const item = items[items.length - 1]
+
             if(saveProduct) {
-                res.status(200).json({ msg : 'Product created successfully', status :  200})
+                res.status(200).json({ msg : 'Product created successfully', status :  200, item : item})
             }
             res.json(500).json({ error: 'internal server error'})
 
