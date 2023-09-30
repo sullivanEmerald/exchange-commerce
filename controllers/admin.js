@@ -21,7 +21,7 @@ module.exports = {
             const item = items[items.length - 1]
 
             if(saveProduct) {
-                res.status(200).json({ msg : 'Product created successfully', status :  200, item : item})
+                res.status(200).json({ msg : 'Product created successfully', status :  200, item : items})
             }
             res.json(500).json({ error: 'internal server error'})
 

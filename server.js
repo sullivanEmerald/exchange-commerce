@@ -10,6 +10,7 @@ const MongoStore =  require('connect-mongo')
 // ROUTES
 const mainRoutes = require('./routes/main')
 const adminRoutes = require('./routes/admin')
+const productRoutes =  require('./routes/products')
 
 // connecting with my environment variables
 require('dotenv').config({ path: './config/.env'})
@@ -41,6 +42,7 @@ app.use(passport.session())
 // Routes
 app.use('/', mainRoutes)
 app.use('/admin', adminRoutes)
+
 
 
 app.listen(process.env.PORT, () => {
