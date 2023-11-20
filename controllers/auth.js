@@ -47,9 +47,36 @@ module.exports = {
         if (err) {
           return next(err);
         }
-        res.status(200).json({ message : 'Login sucessful', user : req.user, status : 200})
+        res.status(200).json({ message : 'Login sucessful', user : req.user})
       });
     })(req, res, next);
+  },
+
+
+  logOut: async (req, res) => {
+    try {
+      req.logout((err) => {
+        if (err) {
+          console.log("Error during logout:", err);
+          return res.status(500).json({ msg: 'Failed to logout. Please try again.' });
+        }
+  
+        req.session.destroy((err) => {
+          if (err) {
+            console.log("Error: Failed to destroy the session during logout.", err);
+            return res.status(500).json({ msg: 'Failed to logout. Please try again.' });
+          }
+          
+          console.log(req.user)
+          res.status(200).json({ msg: 'Successfully logged out' });
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ msg: 'An unexpected error occurred during logout.' });
+    }
   }
   
-};
+
+
+}

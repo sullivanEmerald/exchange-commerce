@@ -13,7 +13,7 @@ module.exports = function (passport) {
 
       if (!user) {
         return done(null, false, { message: 'Invalid email or password' });
-      }
+      } 
 
       const isMatch = await bcrypt.compare(password, user.password);
 

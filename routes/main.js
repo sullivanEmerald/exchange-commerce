@@ -8,9 +8,12 @@ require('../config/passport')(passport);
 // ROUTES FOR ATHENTICATION AND AUTHORIZATION
 router.post('/register', authController.postSignup)
 router.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), authController.postLogin)
+router.post('/logout', authController.logOut)
+
 
 
 // ROUTES FOR PRODUCTS
 router.get('/products', productController.fetchAllProducts)
+
 
 module.exports = router

@@ -6,6 +6,7 @@ const connectDB =  require('./config/database')
 const passport = require('passport')
 const session =  require('express-session')
 const MongoStore =  require('connect-mongo')
+const mongoose  = require('mongoose')
 
 // ROUTES
 const mainRoutes = require('./routes/main')
@@ -29,13 +30,14 @@ app.use(logger('dev'))
 
 // initializing session
 app.use(session({
-    secret : 'keyboard cat',
-    resave : false,
-    saveUninitialized : false,
-    store : MongoStore.create({
-        mongoUrl : process.env.DB_STRING
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.DB_STRING, 
+        mongooseConnection: mongoose.connection, 
     })
-}))
+}));
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -44,7 +46,7 @@ app.use(passport.session())
 app.use('/', mainRoutes)
 app.use('/admin', adminRoutes)
 app.use('/product', productRoutes)
-app.use('/order', OrderRoutes)
+app.use('/orders', OrderRoutes)
 
 
 

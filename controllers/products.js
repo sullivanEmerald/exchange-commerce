@@ -1,4 +1,5 @@
 const Products = require('../model/items')
+const Orders =  require('../model/orders')
 
 module.exports = {
     fetchAllProducts : async (req, res) => {
@@ -26,5 +27,5 @@ module.exports = {
         } catch (error) {
             console.error(error)
         }
-    } 
+    } ,
 }
